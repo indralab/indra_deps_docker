@@ -1,2 +1,3 @@
-# reach_kappa_docker
-Docker image to build latest REACH and Kappa.
+# indra_deps_docker
+
+Docker image to build INDRA dependencies including REACH, PySB and Kappa.
