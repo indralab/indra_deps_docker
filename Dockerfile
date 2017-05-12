@@ -16,6 +16,15 @@ RUN apt-get update && \
     # # http://stackoverflow.com/questions/11912878/gcc-error-gcc-error-trying-to-exec-cc1-execvp-no-such-file-or-directory
     apt-get install -y --reinstall build-essential
 
+# Set default character encoding
+# See http://stackoverflow.com/questions/27931668/encoding-problems-when-running-an-app-in-docker-python-java-ruby-with-u/27931669
+# See http://stackoverflow.com/questions/39760663/docker-ubuntu-bin-sh-1-locale-gen-not-found
+RUN apt-get install -y locales && \
+    locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8  #
+
 # Set environment variables
 ENV DIRPATH /sw
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
