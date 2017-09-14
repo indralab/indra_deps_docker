@@ -36,8 +36,8 @@ ENV KAPPAPATH=$DIRPATH/KaSim
 # See https://github.com/docker-library/openjdk/issues/32
 ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
 # These are used by INDRA when running REACH
-ENV REACH_JAR_PATH=$DIRPATH/reach/target/scala-2.11/reach-gordo-1.3.3-SNAPSHOT.jar
-ENV REACH_VERSION=1.3.3-b4a284
+ENV REACH_JAR_PATH=$DIRPATH/reach/target/scala-2.11/reach-gordo-1.3.4-SNAPSHOT.jar
+ENV REACH_VERSION=1.3.4-735b93
 
 WORKDIR $DIRPATH
 
@@ -62,7 +62,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     # Get and build the latest REACH
     git clone https://github.com/clulab/reach.git && \
     cd reach && \
-    git checkout b4a28418c65e6ea4c && \
+    git checkout 735b930f5ed2ddd1b7f9ce && \
     echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
     sbt assembly && \
     cd ../ && \
