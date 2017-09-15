@@ -36,8 +36,8 @@ ENV KAPPAPATH=$DIRPATH/KaSim
 # See https://github.com/docker-library/openjdk/issues/32
 ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
 # These are used by INDRA when running REACH
-ENV REACH_JAR_PATH=$DIRPATH/reach/target/scala-2.11/reach-gordo-1.3.4-SNAPSHOT.jar
-ENV REACH_VERSION=1.3.4-735b93
+ENV REACH_JAR_PATH=$DIRPATH/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
+ENV REACH_VERSION=1.3.5-735b93
 
 WORKDIR $DIRPATH
 
