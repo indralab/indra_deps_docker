@@ -38,7 +38,8 @@ ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
 # These are used by INDRA when running REACH
 ENV REACHPATH=$DIRPATH/reach
 ENV REACH_JAR_PATH=$REACHPATH/reach-82631d-biores-e9ee36.jar
-ENV REACH_VERSION=1.3.5-735b93
+ENV REACH_VERSION=1.3.3-82631d-biores-e9ee36
+ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
@@ -67,7 +68,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
     #sbt assembly && \
     #cd ../ && \
-    wget http://sorger.med.harvard.edu/data/bachman/reach-82631d-biores-e9ee36.jar -P $REACHPATHRUN
+    wget http://sorger.med.harvard.edu/data/bachman/reach-82631d-biores-e9ee36.jar -P $REACHPATH
     pip install awscli
     aws s3 cp bigmech/sparser_core/r3.core $SPARSERPATH
     aws s3 cp bigmech/sparser_core/save-semantics.sh $SPARSERPATH
