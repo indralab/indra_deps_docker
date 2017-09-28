@@ -68,10 +68,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
     #sbt assembly && \
     #cd ../ && \
-    wget http://sorger.med.harvard.edu/data/bachman/reach-82631d-biores-e9ee36.jar -P $REACHPATH
-    pip install awscli
-    aws s3 cp bigmech/sparser_core/r3.core $SPARSERPATH
-    aws s3 cp bigmech/sparser_core/save-semantics.sh $SPARSERPATH
+    wget http://sorger.med.harvard.edu/data/bachman/reach-82631d-biores-e9ee36.jar -P $REACHPATH && \
     # Install packages via miniconda
     apt-get install python && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
@@ -85,6 +82,9 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
                 jnius-indra && \
+    pip install awscli && \
+    aws s3 cp bigmech/sparser_core/r3.core $SPARSERPATH && \
+    aws s3 cp bigmech/sparser_core/save-semantics.sh $SPARSERPATH && \
     # PySB and dependencies
     wget "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
                                             -O BioNetGen-2.2.6-stable.tar.gz && \
