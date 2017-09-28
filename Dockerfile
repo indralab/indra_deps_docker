@@ -83,7 +83,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
                 jnius-indra && \
     pip install awscli && \
-    aws --debug s3 cp s3://bigmech/sparser_core/r3.core $SPARSERPATH/r3.core && \
+    aws s3 cp s3://bigmech/sparser_core/r3.core $SPARSERPATH/r3.core && \
     aws s3 cp s3://bigmech/sparser_core/save-semantics.sh $SPARSERPATH/save-semantics.sh && \
     # PySB and dependencies
     wget "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
