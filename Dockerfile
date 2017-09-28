@@ -36,8 +36,10 @@ ENV KAPPAPATH=$DIRPATH/KaSim
 # See https://github.com/docker-library/openjdk/issues/32
 ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
 # These are used by INDRA when running REACH
-ENV REACH_JAR_PATH=$DIRPATH/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
-ENV REACH_VERSION=1.3.5-735b93
+ENV REACHPATH=$DIRPATH/reach
+ENV REACH_JAR_PATH=$REACHPATH/reach-82631d-biores-e9ee36.jar
+ENV REACH_VERSION=1.3.3-82631d-biores-e9ee36
+ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
@@ -55,18 +57,21 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     wget http://apt.typesafe.com/repo-deb-build-0002.deb && \
     dpkg -i repo-deb-build-0002.deb && \
     apt-get update && \
-    apt-get install -y sbt && \
+    # apt-get install -y sbt && \
     # Fix error with missing sbt launcher
     # http://stackoverflow.com/questions/36234193/cannot-build-sbt-project-due-to-launcher-version
-    wget http://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.13/sbt-launch.jar -P /root/.sbt/.lib/0.13.13 && \
+    # wget http://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.13/sbt-launch.jar -P /root/.sbt/.lib/0.13.13 && \
     # Get and build the latest REACH
-    git clone https://github.com/clulab/reach.git && \
-    cd reach && \
-    git checkout 735b930f5ed2ddd1b7f9ce && \
-    echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
-    sbt assembly && \
-    cd ../ && \
-    #
+    # git clone https://github.com/clulab/reach.git && \
+    #cd reach && \
+    #git checkout 735b930f5ed2ddd1b7f9ce && \
+    #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
+    #sbt assembly && \
+    #cd ../ && \
+    wget http://sorger.med.harvard.edu/data/bachman/reach-82631d-biores-e9ee36.jar -P $REACHPATH
+    pip install awscli
+    aws s3 cp bigmech/sparser_core/r3.core $SPARSERPATH
+    aws s3 cp bigmech/sparser_core/save-semantics.sh $SPARSERPATH
     # Install packages via miniconda
     apt-get install python && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
