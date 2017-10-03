@@ -40,14 +40,17 @@ ENV REACHPATH=$DIRPATH/reach
 ENV REACH_JAR_PATH=$REACHPATH/reach-82631d-biores-e9ee36.jar
 ENV REACH_VERSION=1.3.3-82631d-biores-e9ee36
 ENV SPARSERPATH=$DIRPATH/sparser
-ENV AWS_ACCESS_KEY_ID=ASIAJHWBZUK2IQRUPZZA
-ENV AWS_SECRET_ACCESS_KEY=tUsQ6nZI1VeYUI8K9wrvsCSG6oxq1ld4Hghq729e
+ENV AWS_ACCESS_KEY_ID=ASIAJDN4JCVMN33QUOOA
+ENV AWS_SECRET_ACCESS_KEY=S73jbotbS7E4xt91Hwy+4m31gzCD8bv8jpmVZKKw
 
 WORKDIR $DIRPATH
 
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
                                                debconf-set-selections && \
+    apt-get install awscli && \
+    aws s3 cp s3://bigmech/sparser_core/r3.core $SPARSERPATH/r3.core && \
+    aws s3 cp s3://bigmech/sparser_core/save-semantics.sh $SPARSERPATH/save-semantics.sh && \
     apt-get install -y oracle-java8-installer && \
     update-java-alternatives -s java-8-oracle && \
     apt-get install -y oracle-java8-set-default && \
@@ -84,9 +87,6 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
                 jnius-indra && \
-    pip install awscli && \
-    aws s3 cp s3://bigmech/sparser_core/r3.core $SPARSERPATH/r3.core && \
-    aws s3 cp s3://bigmech/sparser_core/save-semantics.sh $SPARSERPATH/save-semantics.sh && \
     # PySB and dependencies
     wget "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
                                             -O BioNetGen-2.2.6-stable.tar.gz && \
