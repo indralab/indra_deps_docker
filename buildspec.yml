@@ -1,11 +1,15 @@
 version: 0.1
 
 phases:
+  install:
+    commands:
+      - apt-get install -y awscli 
   pre_build:
     commands:
       - echo Getting sparser core
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
+      - aws s3 cp s3://bigmech/sparser_core/save-semantics.sh . 
   build:
     commands:
       - echo Build started on `date`
