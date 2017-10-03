@@ -43,12 +43,12 @@ ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
+ADD r3.core $SPARSERPATH/r3.core && \
+    save-semantics.sh $SPARSERPATH/save-semantics.sh 
+    
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
                                                debconf-set-selections && \
-    apt-get install -y awscli && \
-    aws s3 cp s3://bigmech/sparser_core/r3.core $SPARSERPATH/r3.core && \
-    aws s3 cp s3://bigmech/sparser_core/save-semantics.sh $SPARSERPATH/save-semantics.sh && \
     apt-get install -y oracle-java8-installer && \
     update-java-alternatives -s java-8-oracle && \
     apt-get install -y oracle-java8-set-default && \
