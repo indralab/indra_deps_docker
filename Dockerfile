@@ -40,15 +40,15 @@ ENV REACHPATH=$DIRPATH/reach
 ENV REACH_JAR_PATH=$REACHPATH/reach-82631d-biores-e9ee36.jar
 ENV REACH_VERSION=1.3.3-82631d-biores-e9ee36
 ENV SPARSERPATH=$DIRPATH/sparser
-ENV AWS_ACCESS_KEY_ID=ASIAJDN4JCVMN33QUOOA
-ENV AWS_SECRET_ACCESS_KEY=S73jbotbS7E4xt91Hwy+4m31gzCD8bv8jpmVZKKw
+ENV AWS_ACCESS_KEY_ID=ASIAIQ65TKVRRWFDBWPA
+ENV AWS_SECRET_ACCESS_KEY=GmU4a8bhiuZE5OmzLtIHtO1Ewi8XKxs5wJJ3xJrk
 
 WORKDIR $DIRPATH
 
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
                                                debconf-set-selections && \
-    apt-get install awscli && \
+    apt-get install -y awscli && \
     aws s3 cp s3://bigmech/sparser_core/r3.core $SPARSERPATH/r3.core && \
     aws s3 cp s3://bigmech/sparser_core/save-semantics.sh $SPARSERPATH/save-semantics.sh && \
     apt-get install -y oracle-java8-installer && \
