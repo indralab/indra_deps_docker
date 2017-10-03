@@ -1,9 +1,6 @@
 version: 0.1
 
 phases:
-  install:
-    commands:
-      - apt-get install -y awscli 
   pre_build:
     commands:
       - echo Getting sparser core
