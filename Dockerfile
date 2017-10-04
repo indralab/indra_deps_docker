@@ -43,8 +43,8 @@ ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
-ADD r3.core $SPARSERPATH
-ADD save-semantics.sh $SPARSERPATH 
+ADD r3.core $SPARSERPATH/r3.core
+ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
     
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
