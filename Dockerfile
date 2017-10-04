@@ -49,6 +49,8 @@ ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
                                                debconf-set-selections && \
+    chmod +x $SPARSERPATH/save-semantics.sh && \
+    chmod +x $SPARSERPATH/r3.core && \
     apt-get install -y oracle-java8-installer && \
     update-java-alternatives -s java-8-oracle && \
     apt-get install -y oracle-java8-set-default && \
