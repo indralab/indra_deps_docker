@@ -73,7 +73,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
     #sbt assembly && \
     #cd ../ && \
-    wget http://sorger.med.harvard.edu/data/bachman/reach-82631d-biores-e9ee36.jar -P $REACHPATH && \
+    wget http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHPATH && \
     # Install packages via miniconda
     apt-get install python && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
