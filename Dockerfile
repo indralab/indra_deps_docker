@@ -86,7 +86,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
                                            lxml matplotlib=1.5.0 networkx pygraphviz && \
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
-                jnius-indra && \
+                jnius-indra sqlalchemy psycopg2 pgcopy && \
     # PySB and dependencies
     wget "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
                                             -O BioNetGen-2.2.6-stable.tar.gz && \
