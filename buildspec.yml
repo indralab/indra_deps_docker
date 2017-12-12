@@ -6,8 +6,9 @@ phases:
       - echo Getting sparser core
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
-      - aws s3 cp s3://bigmech/sparser_core/save-semantics.sh . 
-      - aws s3 cp s3://bigmech/sparser_core/r3.core . 
+      - aws s3 cp s3://bigmech/sparser_core/save-semantics.sh .
+      - aws s3 cp s3://bigmech/sparser_core/r3.core .
+      - aws s3 cp s3://bigmech/sparser_core/version.txt .
   build:
     commands:
       - echo Build started on `date`
