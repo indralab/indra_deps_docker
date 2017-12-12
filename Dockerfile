@@ -45,6 +45,7 @@ WORKDIR $DIRPATH
 
 ADD r3.core $SPARSERPATH/r3.core
 ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
+ADD version.txt $SPARSERPATH/version.txt
     
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
