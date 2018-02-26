@@ -36,8 +36,8 @@ ENV KAPPAPATH=$DIRPATH/KaSim
 # See https://github.com/docker-library/openjdk/issues/32
 ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
 # These are used by INDRA when running REACH
-ENV REACHPATH=$DIRPATH/reach
-ENV REACH_JAR_PATH=$REACHPATH/reach-61059a-biores-e9ee36.jar
+ENV REACHDIR=$DIRPATH/reach
+ENV REACHPATH=$REACHDIR/reach-61059a-biores-e9ee36.jar
 ENV REACH_VERSION=1.3.3-61059a-biores-e9ee36
 ENV SPARSERPATH=$DIRPATH/sparser
 
@@ -74,7 +74,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
     #sbt assembly && \
     #cd ../ && \
-    wget http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHPATH && \
+    wget http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
     # Install packages via miniconda
     apt-get install python && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
