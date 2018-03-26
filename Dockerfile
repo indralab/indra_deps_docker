@@ -95,3 +95,5 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     pip install git+https://github.com/pysb/pysb.git && \
     # Install Kappa
     pip install kappy
+
+RUN apt-get install -y gunicorn
