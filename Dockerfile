@@ -96,4 +96,6 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     # Install Kappa
     pip install kappy
 
-RUN apt-get install -y gunicorn
+# Dependencies for running REST API
+RUN apt-get install -y gunicorn && \
+    pip install bottle
