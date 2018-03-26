@@ -93,15 +93,5 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
                                             -O BioNetGen-2.2.6-stable.tar.gz && \
     tar xzf BioNetGen-2.2.6-stable.tar.gz && \
     pip install git+https://github.com/pysb/pysb.git && \
-    # Install Kappa (m4 macro library is required)
-    apt-get install -y ocaml-nox opam m4 && \
-    # First install ocamlfind via opam (needed to build KaSim/KaSa)
-    opam init -a git://github.com/ocaml/opam-repository && eval $(opam config env) && \
-    opam install ocamlfind --yes && \
-    # Install KaSim/KaSa
-    git clone https://github.com/Kappa-Dev/KaSim.git && \
-    cd KaSim && \
-    git checkout f87eada && \
-    make all && \
-    cd ../
-
+    # Install Kappa
+    pip install kappy
