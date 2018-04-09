@@ -94,4 +94,4 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     tar xzf BioNetGen-2.2.6-stable.tar.gz && \
     pip install git+https://github.com/pysb/pysb.git && \
     # Install Kappa and API dependencies
-    pip install kappy bottle gunicorn
+    pip install kappy bottle gunicorn ndex2
