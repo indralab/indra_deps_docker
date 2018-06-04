@@ -28,7 +28,7 @@ ENV LC_ALL en_US.UTF-8  #
 # Set environment variables
 ENV DIRPATH /sw
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-ENV BNGPATH=$DIRPATH/BioNetGen-2.2.6-stable
+ENV BNGPATH=$DIRPATH/BioNetGen-2.3.1
 ENV PATH="$DIRPATH/miniconda/bin:$PATH"
 ENV KAPPAPATH=$DIRPATH/KaSim
 # Default character encoding for Java in Docker is not UTF-8, which
@@ -46,7 +46,7 @@ WORKDIR $DIRPATH
 ADD r3.core $SPARSERPATH/r3.core
 ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
 ADD version.txt $SPARSERPATH/version.txt
-    
+
 # Install Java
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | \
                                                debconf-set-selections && \
@@ -60,7 +60,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     # (Note that the instructions at
     # http://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html
     # did not work)
-    wget http://apt.typesafe.com/repo-deb-build-0002.deb && \
+    wget -nv http://apt.typesafe.com/repo-deb-build-0002.deb && \
     dpkg -i repo-deb-build-0002.deb && \
     apt-get update && \
     # apt-get install -y sbt && \
@@ -74,10 +74,10 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
     #sbt assembly && \
     #cd ../ && \
-    wget http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
+    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
     # Install packages via miniconda
     apt-get install python && \
-    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
+    wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     chmod +x miniconda.sh && \
     bash miniconda.sh -b -p $DIRPATH/miniconda && \
     conda update -y conda && \
@@ -89,9 +89,9 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
                 jnius-indra sqlalchemy psycopg2 pgcopy && \
     # PySB and dependencies
-    wget "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
-                                            -O BioNetGen-2.2.6-stable.tar.gz && \
-    tar xzf BioNetGen-2.2.6-stable.tar.gz && \
+    wget -nv "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
+                                            -O BioNetGen.tar.gz && \
+    tar xzf BioNetGen.tar.gz && \
     pip install git+https://github.com/pysb/pysb.git && \
     # Install Kappa and API dependencies
     pip install kappy bottle gunicorn ndex2 && \
