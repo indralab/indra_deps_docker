@@ -4,7 +4,7 @@ FROM ubuntu:latest
 # and python-software-properties; these require apt-get update to be called first
 # http://lifeonubuntu.com/ubuntu-missing-add-apt-repository-command/
 RUN apt-get update && \
-    apt-get install -y software-properties-common python-software-properties debconf-utils && \
+    apt-get install -y software-properties-common debconf-utils && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
     # jnius-indra requires cython which requires gcc
@@ -60,9 +60,9 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     # (Note that the instructions at
     # http://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html
     # did not work)
-    wget -nv http://apt.typesafe.com/repo-deb-build-0002.deb && \
-    dpkg -i repo-deb-build-0002.deb && \
-    apt-get update && \
+    # wget -nv http://apt.typesafe.com/repo-deb-build-0002.deb && \
+    # dpkg -i repo-deb-build-0002.deb && \
+    # apt-get update && \
     # apt-get install -y sbt && \
     # Fix error with missing sbt launcher
     # http://stackoverflow.com/questions/36234193/cannot-build-sbt-project-due-to-launcher-version
@@ -76,7 +76,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     #cd ../ && \
     wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
     # Install packages via miniconda
-    apt-get install python && \
+    apt-get install -y python && \
     wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     chmod +x miniconda.sh && \
     bash miniconda.sh -b -p $DIRPATH/miniconda && \
