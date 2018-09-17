@@ -53,8 +53,15 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     chmod +x $SPARSERPATH/save-semantics.sh && \
     chmod +x $SPARSERPATH/r3.core && \
     apt-get install -y oracle-java8-installer && \
+    cd /var/lib/dpkg/info && \
+    sed -i 's|JAVA_VERSION=8u171|JAVA_VERSION=8u181|' oracle-java8-installer.* && \
+    sed -i 's|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/|' oracle-java8-installer.* && \
+    sed -i 's|SHA256SUM_TGZ="b6dd2837efaaec4109b36cfbb94a774db100029f98b0d78be68c27bec0275982"|SHA256SUM_TGZ="1845567095bfbfebd42ed0d09397939796d05456290fb20a83c476ba09f991d3"|' oracle-java8-installer.* && \
+    sed -i 's|J_DIR=jdk1.8.0_171|J_DIR=jdk1.8.0_181|' oracle-java8-installer.* && \
+    apt-get update && \
     update-java-alternatives -s java-8-oracle && \
     apt-get install -y oracle-java8-set-default && \
+    cd $DIRPATH && \
     # Install SBT
     # http://stackoverflow.com/questions/13711395/install-sbt-on-ubuntu
     # (Note that the instructions at
@@ -87,7 +94,8 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
                                            lxml matplotlib=1.5.0 networkx pygraphviz && \
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
-                jnius-indra sqlalchemy psycopg2 pgcopy reportlab && \
+                sqlalchemy psycopg2 pgcopy reportlab && \
+    pip install git+https://github.com/kivy/pyjnius.git && \
     # PySB and dependencies
     wget -nv "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
                                             -O BioNetGen.tar.gz && \
