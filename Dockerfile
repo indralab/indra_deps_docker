@@ -100,7 +100,6 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     wget -nv "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
                                             -O BioNetGen.tar.gz && \
     tar xzf BioNetGen.tar.gz && \
-    pip install git+https://github.com/pysb/pysb.git && \
+    pip install pysb pybel && \
     # Install Kappa and API dependencies
-    pip install kappy bottle gunicorn ndex2 && \
-    pip install git+https://github.com/pybel/pybel.git@master
+    pip install kappy bottle gunicorn ndex2 openpyxl && \
