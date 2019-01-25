@@ -102,5 +102,5 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     tar xzf BioNetGen.tar.gz && \
     pip install pysb pybel && \
     # Install Kappa and API dependencies
-    pip install kappy bottle gunicorn openpyxl && \
+    pip install kappy bottle gunicorn openpyxl flask && \
     pip install git+https://github.com/ndexbio/ndex2-client.git
