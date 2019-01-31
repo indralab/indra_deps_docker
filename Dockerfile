@@ -90,7 +90,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     conda update -y conda && \
     # For the time being qt needs to be set to version 4, and matplotlib to 1.5
     # See https://github.com/ContinuumIO/anaconda-issues/issues/1068
-    conda install -y -c omnia python="3.7.2" qt=4 numpy scipy sympy cython nose \
+    conda install -y -c omnia python="3.7.2" qt numpy scipy sympy cython nose \
                                            lxml matplotlib networkx pygraphviz && \
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
