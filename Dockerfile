@@ -88,11 +88,10 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     chmod +x miniconda.sh && \
     bash miniconda.sh -b -p $DIRPATH/miniconda && \
     conda update -y conda && \
-    # For the time being qt needs to be set to version 4, and matplotlib to 1.5
-    # See https://github.com/ContinuumIO/anaconda-issues/issues/1068
     apt-get install -y graphviz && \
     conda install -y -c omnia python="3.7.2" qt numpy scipy sympy cython nose \
-                                           lxml matplotlib networkx pygraphviz && \
+                                           lxml matplotlib networkx && \
+    conda install -y -c conda-forge pygraphviz && \
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
                 sqlalchemy psycopg2 pgcopy reportlab && \
