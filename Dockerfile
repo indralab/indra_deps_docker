@@ -103,7 +103,9 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     tar xzf BioNetGen.tar.gz && \
     pip install pysb pybel && \
     # Install Kappa and API dependencies
-    pip install kappy bottle gunicorn openpyxl flask && \
+    pip install python-libsbml bottle gunicorn openpyxl flask && \
     pip install git+https://github.com/ndexbio/ndex2-client.git && \
     pip install git+https://github.com/indralab/protmapper.git && \
-    python -m protmapper.resources
+    python -m protmapper.resources && \
+    wget -nv http://sorger.med.harvard.edu/data/bgyori/kappy-4.0.0rc1-cp37-cp37m-linux_x86_64.whl && \
+    pip install kappy-4.0.0rc1-cp37-cp37m-linux_x86_64.whl
