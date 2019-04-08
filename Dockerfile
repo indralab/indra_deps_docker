@@ -94,7 +94,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
     conda install -y -c conda-forge pygraphviz && \
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
-                sqlalchemy psycopg2 pgcopy reportlab && \
+                sqlalchemy psycopg2-binary pgcopy reportlab && \
     pip install git+https://github.com/kivy/pyjnius.git && \
     # PySB and dependencies
     wget -nv "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
