@@ -67,6 +67,7 @@ RUN cd $DIRPATH && \
     pip install jsonschema coverage python-coveralls boto3 doctest-ignore-unicode \
                 sqlalchemy psycopg2-binary reportlab pyjnius==1.1.4 \
                 python-libsbml bottle gunicorn openpyxl flask obonet \
-                protmapper gilda adeft kappy==4.0.94 pybel&& \
+                jinja2 ndex2==2.0.1 requests stemming nltk unidecode future pykqml \
+                paths-graphprotmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 && \
     # Download protmapper resources
     python -m protmapper.resources
