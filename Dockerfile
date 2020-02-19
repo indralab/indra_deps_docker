@@ -38,19 +38,6 @@ ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
-# Add and set up reading systems
-ADD r3.core $SPARSERPATH/r3.core
-ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
-ADD version.txt $SPARSERPATH/version.txt
-
-RUN chmod +x $SPARSERPATH/save-semantics.sh && \
-    chmod +x $SPARSERPATH/r3.core && \
-    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
-    wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
-    wget "https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-2.4.0/BioNetGen-2.4.0-Linux.tgz" \
-        -O bionetgen.tar.gz -nv && \
-    tar xzf bionetgen.tar.gz
-
 # Set up Miniconda and Python dependencies
 RUN cd $DIRPATH && \
     # Set up Miniconda
@@ -68,6 +55,20 @@ RUN cd $DIRPATH && \
                 sqlalchemy psycopg2-binary reportlab pyjnius==1.1.4 \
                 python-libsbml bottle gunicorn openpyxl flask obonet \
                 jinja2 ndex2==2.0.1 requests stemming nltk unidecode future pykqml \
-                paths-graphprotmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 && \
+                paths-graph protmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 && \
     # Download protmapper resources
     python -m protmapper.resources
+
+# Add and set up reading systems
+ADD r3.core $SPARSERPATH/r3.core
+ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
+ADD version.txt $SPARSERPATH/version.txt
+
+RUN chmod +x $SPARSERPATH/save-semantics.sh && \
+    chmod +x $SPARSERPATH/r3.core && \
+    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
+    wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
+    wget "https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-2.4.0/BioNetGen-2.4.0-Linux.tgz" \
+        -O bionetgen.tar.gz -nv && \
+    tar xzf bionetgen.tar.gz
+
