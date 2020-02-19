@@ -48,7 +48,7 @@ RUN cd $DIRPATH && \
     # Install packages that are available via conda directly
     conda install -y -c omnia python="3.7.2" \
         qt numpy scipy sympy cython nose lxml matplotlib networkx \
-        objectpath rdflib ipython pandas && \
+        ipython pandas && \
     conda install -y -c conda-forge pygraphviz && \
     # Now install other Python packages via pip
     pip install --upgrade pip && \
@@ -56,7 +56,8 @@ RUN cd $DIRPATH && \
                 sqlalchemy psycopg2-binary reportlab pyjnius==1.1.4 \
                 python-libsbml bottle gunicorn openpyxl flask obonet \
                 jinja2 ndex2==2.0.1 requests stemming nltk unidecode future pykqml \
-                paths-graph protmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 && \
+                paths-graph protmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 \
+                objectpath rdflib && \
     # Download protmapper resources
     python -m protmapper.resources && \
     # Download Adeft models
