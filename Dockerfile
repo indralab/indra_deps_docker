@@ -65,7 +65,8 @@ RUN cd $DIRPATH && \
     # Now install other Python packages via pip
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 doctest-ignore-unicode \
-                sqlalchemy psycopg2-binary reportlab pyjnius==1.1.4
-                protmapper gilda adeft kappy==4.0.94 && \
+                sqlalchemy psycopg2-binary reportlab pyjnius==1.1.4 \
+                python-libsbml bottle gunicorn openpyxl flask obonet \
+                protmapper gilda adeft kappy==4.0.94 pybel&& \
     # Download protmapper resources
     python -m protmapper.resources
