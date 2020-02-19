@@ -41,6 +41,7 @@ WORKDIR $DIRPATH
 # Set up Miniconda and Python dependencies
 RUN cd $DIRPATH && \
     # Set up Miniconda
+    wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     chmod +x miniconda.sh && \
     bash miniconda.sh -b -p $DIRPATH/miniconda && \
     conda update -y conda && \
@@ -69,8 +70,6 @@ ADD version.txt $SPARSERPATH/version.txt
 RUN chmod +x $SPARSERPATH/save-semantics.sh && \
     chmod +x $SPARSERPATH/r3.core && \
     wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
-    wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     wget "https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-2.4.0/BioNetGen-2.4.0-Linux.tgz" \
         -O bionetgen.tar.gz -nv && \
     tar xzf bionetgen.tar.gz
-
