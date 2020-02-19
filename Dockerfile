@@ -57,7 +57,9 @@ RUN cd $DIRPATH && \
                 jinja2 ndex2==2.0.1 requests stemming nltk unidecode future pykqml \
                 paths-graph protmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 && \
     # Download protmapper resources
-    python -m protmapper.resources
+    python -m protmapper.resources && \
+    # Download Adeft models
+    python -m adeft.download
 
 # Add and set up reading systems
 ADD r3.core $SPARSERPATH/r3.core
