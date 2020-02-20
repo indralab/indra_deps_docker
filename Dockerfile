@@ -1,14 +1,10 @@
 FROM ubuntu:latest
 
-# The add-apt-repository command depends on software-properties-common
-# and python-software-properties; these require apt-get update to be called first
-# http://lifeonubuntu.com/ubuntu-missing-add-apt-repository-command/
 RUN apt-get update && \
-    apt-get install -y software-properties-common debconf-utils && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update && \
+    # Install Java
+    apt-get install -y openjdk-8-jdk && \
     # jnius-indra requires cython which requires gcc
-    apt-get install -y git wget bzip2 gcc && \
+    apt-get install -y git wget bzip2 gcc graphviz graphviz-dev && \
     # Dependencies required by Conda
     # See https://github.com/conda/conda/issues/1051
     apt-get install -y libsm6 libxrender1 libfontconfig1 && \
@@ -27,7 +23,7 @@ ENV LC_ALL en_US.UTF-8  #
 
 # Set environment variables
 ENV DIRPATH /sw
-ENV BNGPATH=$DIRPATH/BioNetGen-2.3.1
+ENV BNGPATH=$DIRPATH/BioNetGen-2.4.0
 ENV PATH="$DIRPATH/miniconda/bin:$PATH"
 ENV KAPPAPATH=$DIRPATH/KaSim
 # Default character encoding for Java in Docker is not UTF-8, which
@@ -42,58 +38,38 @@ ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
-ADD r3.core $SPARSERPATH/r3.core
-ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
-ADD version.txt $SPARSERPATH/version.txt
-
-# Install Java
-RUN chmod +x $SPARSERPATH/save-semantics.sh && \
-    chmod +x $SPARSERPATH/r3.core && \
-    apt-get install -y openjdk-8-jdk && \
-    apt-get update && \
-    cd $DIRPATH && \
-    # Install SBT
-    # http://stackoverflow.com/questions/13711395/install-sbt-on-ubuntu
-    # (Note that the instructions at
-    # http://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html
-    # did not work)
-    # wget -nv http://apt.typesafe.com/repo-deb-build-0002.deb && \
-    # dpkg -i repo-deb-build-0002.deb && \
-    # apt-get update && \
-    # apt-get install -y sbt && \
-    # Fix error with missing sbt launcher
-    # http://stackoverflow.com/questions/36234193/cannot-build-sbt-project-due-to-launcher-version
-    # wget http://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.13/sbt-launch.jar -P /root/.sbt/.lib/0.13.13 && \
-    # Get and build the latest REACH
-    # git clone https://github.com/clulab/reach.git && \
-    #cd reach && \
-    #git checkout 735b930f5ed2ddd1b7f9ce && \
-    #echo 'mainClass in assembly := Some("org.clulab.reach.RunReachCLI")' >> build.sbt && \
-    #sbt assembly && \
-    #cd ../ && \
-    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
-    # Install packages via miniconda
-    apt-get install -y python && \
+# Set up Miniconda and Python dependencies
+RUN cd $DIRPATH && \
+    # Set up Miniconda
     wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     chmod +x miniconda.sh && \
     bash miniconda.sh -b -p $DIRPATH/miniconda && \
     conda update -y conda && \
-    apt-get install -y graphviz && \
-    conda install -y -c omnia python="3.7.2" qt numpy scipy sympy cython nose \
-                                           lxml matplotlib networkx && \
-    conda install -y -c conda-forge pygraphviz && \
+    # Install packages that are available via conda directly
+    conda install -y -c omnia python="3.7.2" \
+        qt numpy scipy sympy cython nose lxml matplotlib networkx \
+        ipython pandas && \
+    # Now install other Python packages via pip
     pip install --upgrade pip && \
-    pip install jsonschema coverage python-coveralls boto3 pandas doctest-ignore-unicode \
-                sqlalchemy psycopg2-binary reportlab && \
-    pip install git+https://github.com/kivy/pyjnius.git && \
-    # PySB and dependencies
-    wget -nv "http://www.csb.pitt.edu/Faculty/Faeder/?smd_process_download=1&download_id=142" \
-                                            -O BioNetGen.tar.gz && \
-    tar xzf BioNetGen.tar.gz && \
-    pip install pysb pybel && \
-    # Install Kappa and API dependencies
-    pip install python-libsbml bottle gunicorn openpyxl flask && \
-    pip install git+https://github.com/indralab/protmapper.git && \
+    pip install jsonschema coverage python-coveralls boto3 doctest-ignore-unicode \
+                sqlalchemy psycopg2-binary reportlab pyjnius==1.1.4 \
+                python-libsbml bottle gunicorn openpyxl flask obonet \
+                jinja2 ndex2==2.0.1 requests stemming nltk unidecode future pykqml \
+                paths-graph protmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 \
+                objectpath rdflib pygraphviz && \
+    # Download protmapper resources
     python -m protmapper.resources && \
-    wget -nv http://sorger.med.harvard.edu/data/bgyori/kappy-4.0.0rc1-cp37-cp37m-linux_x86_64.whl && \
-    pip install kappy-4.0.0rc1-cp37-cp37m-linux_x86_64.whl
+    # Download Adeft models
+    python -m adeft.download
+
+# Add and set up reading systems
+ADD r3.core $SPARSERPATH/r3.core
+ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
+ADD version.txt $SPARSERPATH/version.txt
+
+RUN chmod +x $SPARSERPATH/save-semantics.sh && \
+    chmod +x $SPARSERPATH/r3.core && \
+    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
+    wget "https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-2.4.0/BioNetGen-2.4.0-Linux.tgz" \
+        -O bionetgen.tar.gz -nv && \
+    tar xzf bionetgen.tar.gz
