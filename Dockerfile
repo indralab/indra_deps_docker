@@ -60,7 +60,11 @@ RUN cd $DIRPATH && \
     # Download protmapper resources
     python -m protmapper.resources && \
     # Download Adeft models
-    python -m adeft.download
+    python -m adeft.download && \
+    # Install BioNetGen
+    wget "https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-2.4.0/BioNetGen-2.4.0-Linux.tgz" \
+        -O bionetgen.tar.gz -nv && \
+    tar xzf bionetgen.tar.gz
 
 # Add and set up reading systems
 ADD r3.core $SPARSERPATH/r3.core
@@ -69,7 +73,4 @@ ADD version.txt $SPARSERPATH/version.txt
 
 RUN chmod +x $SPARSERPATH/save-semantics.sh && \
     chmod +x $SPARSERPATH/r3.core && \
-    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR && \
-    wget "https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-2.4.0/BioNetGen-2.4.0-Linux.tgz" \
-        -O bionetgen.tar.gz -nv && \
-    tar xzf bionetgen.tar.gz
+    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR
