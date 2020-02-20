@@ -4,7 +4,7 @@ RUN apt-get update && \
     # Install Java
     apt-get install -y openjdk-8-jdk && \
     # jnius-indra requires cython which requires gcc
-    apt-get install -y wget bzip2 gcc graphviz && \
+    apt-get install -y git wget bzip2 gcc graphviz graphviz-dev && \
     # Dependencies required by Conda
     # See https://github.com/conda/conda/issues/1051
     apt-get install -y libsm6 libxrender1 libfontconfig1 && \
@@ -49,7 +49,6 @@ RUN cd $DIRPATH && \
     conda install -y -c omnia python="3.7.2" \
         qt numpy scipy sympy cython nose lxml matplotlib networkx \
         ipython pandas && \
-    conda install -y -c conda-forge pygraphviz && \
     # Now install other Python packages via pip
     pip install --upgrade pip && \
     pip install jsonschema coverage python-coveralls boto3 doctest-ignore-unicode \
@@ -57,7 +56,7 @@ RUN cd $DIRPATH && \
                 python-libsbml bottle gunicorn openpyxl flask obonet \
                 jinja2 ndex2==2.0.1 requests stemming nltk unidecode future pykqml \
                 paths-graph protmapper gilda adeft kappy==4.0.94 pybel pysb==1.9.1 \
-                objectpath rdflib && \
+                objectpath rdflib pygraphviz && \
     # Download protmapper resources
     python -m protmapper.resources && \
     # Download Adeft models
