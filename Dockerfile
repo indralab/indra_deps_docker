@@ -70,7 +70,7 @@ RUN cd $DIRPATH && \
 ADD r3.core $SPARSERPATH/r3.core
 ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
 ADD version.txt $SPARSERPATH/version.txt
+ADD reach-1.6.1-SNAPSHOT-FAT.jar $REACHDIR/reach-1.6.1-SNAPSHOT-FAT.jar
 
 RUN chmod +x $SPARSERPATH/save-semantics.sh && \
-    chmod +x $SPARSERPATH/r3.core && \
-    wget -nv http://sorger.med.harvard.edu/data/bachman/reach-61059a-biores-e9ee36.jar -P $REACHDIR
+    chmod +x $SPARSERPATH/r3.core

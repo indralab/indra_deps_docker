@@ -9,6 +9,7 @@ phases:
       - aws s3 cp s3://bigmech/sparser_core/save-semantics.sh .
       - aws s3 cp s3://bigmech/sparser_core/r3.core .
       - aws s3 cp s3://bigmech/sparser_core/version.txt .
+      - aws s3 cp s3://bigmech/reach-1.6.1-SNAPSHOT-FAT.jar .
   build:
     commands:
       - echo Build started on `date`
