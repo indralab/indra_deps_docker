@@ -4,7 +4,7 @@ RUN apt-get update && \
     # Install Java
     apt-get install -y openjdk-8-jdk && \
     # jnius-indra requires cython which requires gcc
-    apt-get install -y git wget bzip2 gcc graphviz graphviz-dev && \
+    apt-get install -y git wget bzip2 gcc graphviz graphviz-dev pkg-config && \
     # Dependencies required by Conda
     # See https://github.com/conda/conda/issues/1051
     apt-get install -y libsm6 libxrender1 libfontconfig1 && \
