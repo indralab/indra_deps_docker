@@ -26,15 +26,6 @@ ENV DIRPATH /sw
 ENV BNGPATH=$DIRPATH/BioNetGen-2.4.0
 ENV PATH="$DIRPATH/miniconda/bin:$PATH"
 ENV KAPPAPATH=$DIRPATH/KaSim
-# Default character encoding for Java in Docker is not UTF-8, which
-# leads to problems with REACH; so we set option
-# See https://github.com/docker-library/openjdk/issues/32
-ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
-# These are used by INDRA when running REACH
-ENV REACHDIR=$DIRPATH/reach
-ENV REACHPATH=$REACHDIR/reach-61059a-biores-e9ee36.jar
-ENV REACH_VERSION=1.3.3-61059a-biores-e9ee36
-ENV SPARSERPATH=$DIRPATH/sparser
 
 WORKDIR $DIRPATH
 
@@ -67,10 +58,22 @@ RUN cd $DIRPATH && \
     tar xzf bionetgen.tar.gz
 
 # Add and set up reading systems
+# ------------------------------
+# SPARSER
+ENV SPARSERPATH=$DIRPATH/sparser
 ADD r3.core $SPARSERPATH/r3.core
 ADD save-semantics.sh $SPARSERPATH/save-semantics.sh
 ADD version.txt $SPARSERPATH/version.txt
-ADD reach-1.6.1-SNAPSHOT-FAT.jar $REACHDIR/reach-1.6.1-SNAPSHOT-FAT.jar
-
 RUN chmod +x $SPARSERPATH/save-semantics.sh && \
     chmod +x $SPARSERPATH/r3.core
+
+# REACH
+# Default character encoding for Java in Docker is not UTF-8, which
+# leads to problems with REACH; so we set option
+# See https://github.com/docker-library/openjdk/issues/32
+ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+ENV REACHDIR=$DIRPATH/reach
+ENV REACHPATH=$REACHDIR/reach-1.6.1-SNAPSHOT-FAT.jar
+ENV REACH_VERSION=1.6.1
+ADD reach-1.6.1-SNAPSHOT-FAT.jar $REACHPATH
+
